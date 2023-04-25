@@ -1,54 +1,64 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
-    
-   <style>
-    .form-center {
-  display:flex;
-  justify-content: center;
-    }
-    form{
+    <style>
+    .form-custom{
     border:2px solid orange;
-    width:65%;
+    }
+    .button-custom{
+        border:2px solid orange;
+        background-color:orange;
+        width:100%;
+        margin:2px;
     }
     h4{
-    margin: 1%;
-    text-align: center;
+    margin-top:3px;
+    text-align:center;
     color: orange;
+    }
+    p{
+        font-size:small;
+        text-align:center;
     }
     .error{
         font-size:large;
-        border:2px solid red;
-        color:red;
+        border:2px solid orange;
+        background-color:orange;
     }
     </style>
     <title>registeration page</title>
 </head>
 <body>
-    <div class="container mt-3">
-        <div class="form-center">
-            <form action="#" autocomplete="on"  id="form" onsubmit="register(event)">
-                <h4>Book a call</h4>
-                <message class="m-5"></message><br>
-                <label for="name" class="form-label">Name</label>
-                <input type="text" id="name" name="Name" class="form-control">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="Email" class="form-control">
-                <label for="phone" class="form-label">Phone</label>
-                <input type="text" id="phone" name="Phone"  class="form-control">
-                <label class="form-label">Time for call</label>
-                <div class="input-group">
-                    <input type="date" id="date" name="Date" class="form-control">
-                    <input type="time" id="time" name="Time" class="form-control">
-                </div><br>
-                <input type="submit"  id="submit"  value="Get a Call" class="form-control" style="background-color:orange;border:2px solid orange;">
-            </form>
+    <div class="container mt-md-5">
+      <div class="row">
+        <div class="col-md-7 offset-md-3 form-custom">
+          <h4>Book a call</h4>
+          <p>Book a call and we will call you back.</p>
+          <div class="row">
+            <div class="col-auto offset-4">
+                <message id="msg"></message>
             </div>
+          </div>
+          <form action="#" autocomplete="on" id="form">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="Name" placeholder="Enter your name">
+            <label for="inputEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="Email" placeholder="Enter your email">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" Name="Phone" placeholder="Enter your phone no.">
+            <label for="time">Time for call</label>
+            <div class="input-group">
+              <input type="date" id="date" class="form-control" name="Date" style="width:50%;">
+              <input type="time" id="time"  class="form-control"name="Time" style="width:50%;">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block button-custom">Get a Call</button>
+          </form>
+        </div>
+    </div>
         <ul id="users" style="list-style-type:none;text-align: center;">
         </ul>
     </div>    
@@ -61,17 +71,17 @@
         const phone=document.querySelector("#phone");
         const date =document.querySelector("#date");
         const time=document.querySelector("#time");
-        const msg=document.querySelector(".m-5");
+        const msg=document.querySelector("#msg");
         const users=document.querySelector("#users");
         if(name.value=="" || email.value=="" || phone.value=="" || date.value=="" || time.value=="")
         {   
-            msg.classList.add("error")
+            msg.classList.add("error");
             msg.innerHTML="please enter all the fields!";
             setTimeout(() => msg.remove(),3000);
         }
         else
             {
-                const li= document.createElement("li")
+                const li= document.createElement("li");
                 li.appendChild(document.createTextNode(`${name.value}: ${email.value}: ${phone.value}: ${date.value}: ${time.value}`));
                 users.appendChild(li);
                 console.log(name.value);
@@ -86,17 +96,18 @@
                 time.value="";
             }
     }
-    const submit=document.querySelector("#submit")
+    const form=document.querySelector("#form");
+    form.addEventListener("submit",register);
+    const submit=document.querySelector(".btn");
     submit.addEventListener("click",(e)=>{
-        document.querySelector("#submit").style.background="#4055CC";
-    })
+        document.querySelector(".btn").style.background="#4055CC";
+    });
     submit.addEventListener("mouseout",(e)=>{
         document.querySelector("#form").style.background="white";
-    })
+    });
     submit.addEventListener("mouseover",(e)=>{
         document.querySelector("#form").style.background="#DDDDDD";
-    })
-    
+    });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
